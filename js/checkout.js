@@ -3,17 +3,23 @@
 const cartItemsContainer = document.querySelector('#cartItems');
 const totalPrice = document.querySelector('#total');
 
+let storedCartProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const cartProductsParam = urlParams.get('cartproducts');
     
     if (cartProductsParam) {
-        const storedCartProducts = JSON.parse(decodeURIComponent(cartProductsParam));
+        // const storedCartProducts = JSON.parse(decodeURIComponent(cartProductsParam));
+        const decodedCartProducts = JSON.parse(decodeURIComponent(cartProductsParam));
 
-        if (storedCartProducts.length > 0) {
+        // if (storedCartProducts.length > 0) {
+            if (decodedCartProducts.length > 0) {
             cartItemsContainer.innerHTML = '<h3>Cart Items</h3>';
 
-            storedCartProducts.forEach(cartProduct => {
+            // storedCartProducts.forEach(cartProduct => {
+                decodedCartProducts.forEach(cartProduct => {
                 const cartProductElement = document.createElement('div');   
                 cartProductElement.className = "col"; 
                 cartProductElement.innerHTML = `
@@ -36,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+   
     const urlParams = new URLSearchParams(window.location.search);
     const cartProductsParam = urlParams.get('cartproducts');
     
@@ -72,3 +79,27 @@ document.addEventListener('DOMContentLoaded', () => {
         totalPrice.innerHTML = ''; // Clear total price display
     }
 });
+
+// Function to update localStorage with cart items
+function updateLocalStorage(cartProducts) {
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+}
+
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('add-to-cart')) {
+        const product = event.target.getAttribute('data-product');
+        const price = parseFloat(event.target.getAttribute('data-price'));
+        const quantity = 1; // You can adjust this as needed
+        const img = event.target.getAttribute('data-img');
+
+        const cartProduct = { product, price, quantity, img };
+
+        storedCartProducts.push(cartProduct);
+        updateLocalStorage(storedCartProducts);
+
+        // Refresh the page to reflect the updated cart
+        location.reload();
+    }
+});
+
+
