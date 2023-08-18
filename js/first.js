@@ -15,6 +15,20 @@ const cartproducts = [];
 const prod = document.querySelector('#productlist');
 const srch_btn = document.querySelector('#srch_btn');
 const showCart = document.querySelector('#showCartBtn');
+const loginBtn = document.querySelector('#log_btn');
+const editBtn = document.querySelector('#editBtn');
+
+loginBtn.addEventListener('click', () =>{
+    const urlParamsi = new URLSearchParams(window.location.search);
+    const naam = urlParamsi.get('name');
+    const userEmail = urlParamsi.get('email');
+    console.log(userEmail);
+
+window.location.href = `profile.html?name=${encodeURIComponent(naam)}&email=${encodeURIComponent(userEmail)}`;
+   
+})
+
+
 
 srch_btn.addEventListener('click', () =>{
     window.location.href = 'page1.html';
