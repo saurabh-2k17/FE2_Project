@@ -5,6 +5,12 @@ const users = JSON.parse(localStorage.getItem('users')) || [];
 
 const form = document.querySelector('#form_page');
 
+const signup = document.querySelector('.btn.btn-primary');
+
+signup.addEventListener('click', () =>{
+  window.location.href='index.html';
+})
+
 function login() {
   const name_input = document.querySelector('#name1');
   const email_input = document.querySelector('#email1');
