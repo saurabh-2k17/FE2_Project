@@ -47,8 +47,13 @@ function registration() {
     email_input.value = '';
     password_input.value = '';
 
+    const encodedUserName = encodeURIComponent(user_name);
+    const encodedUserEmail = encodeURIComponent(user_email);
+
+    //  window.location.href = `welcome.html?name=${encodeURIComponent(user_name)}`;
+    window.location.href = `welcome.html?name=${encodedUserName}&email=${encodedUserEmail}`;
+     
     
-    window.location.href = `welcome.html?name=${encodeURIComponent(user_name)}`;
   });
 }
 
